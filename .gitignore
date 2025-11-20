@@ -1,0 +1,7 @@
+FrameworkJob*.xml
+local/*
+logs/*
+*.log
+*.root
+*.txt*
+!config_file_list.txt
