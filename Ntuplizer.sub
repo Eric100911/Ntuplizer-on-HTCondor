@@ -1,6 +1,6 @@
 Universe        = vanilla
 Executable      = wrapper.sh
-Arguments       = $(LHE) $(MINIAOD) $(x509userproxy)
+Arguments       = $(MINIAOD) $(NTUPLE) $(x509userproxy)
 Output          = logs/job_$(JobId)_$(ClusterId).stdout
 Error           = logs/job_$(JobId)_$(ClusterId).stderr
 Log             = logs/job_$(JobId)_$(ClusterId).log
@@ -8,20 +8,16 @@ Log             = logs/job_$(JobId)_$(ClusterId).log
 # These lines transfer the wrapper and required files to the worker node.
 should_transfer_files   = YES
 when_to_transfer_output = ON_EXIT
-transfer_input_files    = wrapper.sh,\
-                          HadronizerGENSIM_13p6TeV_TuneCP5_pythia8_Run3Summer22.py,\
-                          DIGI_13p6TeV_TuneCP5_pythia8_Run3Summer22.py,\
-                          RECO_13p6TeV_TuneCP5_pythia8_Run3Summer22.py,\
-                          Mini_13p6TeV_TuneCP5_pythia8_Run3Summer22.py
+transfer_input_files    = wrapper.sh, cmssw_configs.tar
 
 # Change to match your experiment's requirements
 request_cpus    = 2
-request_memory  = 12 GB
-request_disk    = 4 GB
+request_memory  = 1 GB
+request_disk    = 512 MB
 +JobFlavour     = "workday"
 
 # If your jobs require a proxy to access EOS, set it up like this:
 x509userproxy = /afs/cern.ch/user/c/chiw/condor/x509up
 
 # Queue jobs using a file with LHE and MiniAOD output paths, space-separated
-queue LHE, MINIAOD from LHE_sources.txt
+queue MINIAOD,NTUPLE from MiniAOD_sources.txt

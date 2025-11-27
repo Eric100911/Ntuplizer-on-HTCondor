@@ -1,4 +1,1 @@
-DIGI_13p6TeV_TuneCP5_pythia8_Run3Summer22.py
-HadronizerGENSIM_13p6TeV_TuneCP5_pythia8_Run3Summer22.py
-Mini_13p6TeV_TuneCP5_pythia8_Run3Summer22.py
-RECO_13p6TeV_TuneCP5_pythia8_Run3Summer22.py
+CMSSW_13_0_20/

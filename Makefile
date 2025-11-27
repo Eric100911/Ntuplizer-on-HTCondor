@@ -1,13 +1,17 @@
 .PHONY: submit dryrun x509up
 
-CONFIG_FILES = $(shell cat config_file_list.txt)
 
-submit: x509up cmssw_configs.tar
+submit: cmssw_configs.tar wrapper.sh
 	mkdir -p logs && condor_submit LHE-to-SKIM.sub
-	cp LHE_source.txt logs/
+	cp LHE_sources.txt logs/
 
-cmssw_configs.tar: $(CONFIG_FILES)
-	tar -cvf cmssw_configs.tar $(CONFIG_FILES)
+preplocal: cmssw_configs.tar wrapper.sh
+	rm -rf local/
+	mkdir -p local/
+	cp cmssw_configs.tar local/
+	cp wrapper.sh local/
+	@echo "Prepared local/ directory with CMSSW configs and wrapper.sh"
 
-x509up:
-	voms-proxy-init --voms cms --valid 192:00 --out /afs/cern.ch/user/c/chiw/condor/x509up
+cmssw_configs.tar: CMSSW_13_0_20/src/HeavyFlavourAnalysis/TPS-Onia2MuMu/test/runMultiLepPAT_mcRun3_miniAOD_Run2022.py
+	tar -cvf cmssw_configs.tar CMSSW_13_0_20/
+
